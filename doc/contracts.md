@@ -1,5 +1,7 @@
 # Contracts
 
+*Read this in other languages: [Korean](contracts.md).*
+
 This document describes smart contracts that can be setup using Grin even
 though the Grin chain does not support scripting. All these contracts rely
 on a few basic features that are built in the chain and compose them in
