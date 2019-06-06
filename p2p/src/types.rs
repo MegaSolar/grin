@@ -333,7 +333,7 @@ bitflags! {
 	}
 }
 
-/// Types of connection
+// Types of connection
 enum_from_primitive! {
 	#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
 	pub enum Direction {
@@ -342,7 +342,7 @@ enum_from_primitive! {
 	}
 }
 
-/// Ban reason
+// Ban reason
 enum_from_primitive! {
 	#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
 	pub enum ReasonForBan {
@@ -535,6 +535,9 @@ pub trait ChainAdapter: Sync + Send {
 	/// the required indexes for a consumer to rewind to a consistant state
 	/// at the provided block hash.
 	fn txhashset_read(&self, h: Hash) -> Option<TxHashSetRead>;
+
+	/// Header of the txhashset archive currently being served to peers.
+	fn txhashset_archive_header(&self) -> Result<core::BlockHeader, chain::Error>;
 
 	/// Whether the node is ready to accept a new txhashset. If this isn't the
 	/// case, the archive is provided without being requested and likely an

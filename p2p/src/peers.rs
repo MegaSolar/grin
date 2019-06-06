@@ -510,8 +510,11 @@ impl Peers {
 
 	pub fn stop(&self) {
 		let mut peers = self.peers.write();
+		for peer in peers.values() {
+			peer.stop();
+		}
 		for (_, peer) in peers.drain() {
-			peer.stop_and_wait();
+			peer.wait();
 		}
 	}
 
@@ -669,6 +672,10 @@ impl ChainAdapter for Peers {
 
 	fn txhashset_read(&self, h: Hash) -> Option<TxHashSetRead> {
 		self.adapter.txhashset_read(h)
+	}
+
+	fn txhashset_archive_header(&self) -> Result<core::BlockHeader, chain::Error> {
+		self.adapter.txhashset_archive_header()
 	}
 
 	fn txhashset_receive_ready(&self) -> bool {
